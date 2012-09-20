@@ -27,7 +27,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
-	
+    
+    
+    UIView *view = [[UIView alloc] initWithFrame:self.window.frame];
+    [self.window addSubview:view];
+    NSLog(@"w:%f h:%f",self.window.frame.size.width,self.window.frame.size.height);
+    
+    webView = [[UIWebView alloc] initWithFrame:self.window.frame];
+    [webView setDelegate:self];
+    [view addSubview:webView];
+
 	self.locationManager = [[CLLocationManager alloc] init];
 	self.locationManager.delegate = self;
 	
@@ -87,7 +96,11 @@
 		self.currentSource = nil;
 		self.currentDestination = nil;
 		
-		[self openURL:directionsURL];
+        NSLog(@"open url %@",directionsURL);
+//		[self openURL:directionsURL];
+
+        
+        [webView loadRequest:[[NSURLRequest alloc] initWithURL:directionsURL]];
 	}
 }
 
